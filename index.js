@@ -51,7 +51,7 @@ async function run() {
       //create
       //http://localhost:4000/note
   
-      app.post("/note", async (req, res) => {
+      app.post("/manageInventory", async (req, res) => {
         const data = req.body;
         //console.log("from post api", data);
   
@@ -60,25 +60,24 @@ async function run() {
         res.send(result);
       });
   
-      // update notesTaker
-      //http://localhost:4000/note/6262dcd73f629a282aaba2e6
-      app.put("/note/:id", async (req, res) => {
+      // update 
+      //http://localhost:4000/inventoryItems/626e7e85bfcdae3b7161e7b2
+      app.put("/inventoryItems/:id", async (req, res) => {
         const id = req.params.id;
         const data = req.body;
         //console.log("from update api", data);
         const filter = { _id: ObjectId(id) };
         const options = { upsert: true };
   
-        const updateDoc = {
+        const updateStock = {
           $set: {
-            userName: data.userName,
-            textData: data.textData,
+            booksQuantity: data.booksQuantity,
           },
         };
   
         const result = await booksCollection.updateOne(
           filter,
-          updateDoc,
+          updateStock,
           options
         );
         // console.log('from put method',id)
@@ -86,12 +85,12 @@ async function run() {
       });
   
       // delete note
-      //http://localhost:4000/note/6262dcd73f629a282aaba2e6
-      app.delete("/note/:id", async (req, res) => {
+      //http://localhost:4000/inventoryItems/626e7e85bfcdae3b7161e7b2
+      app.delete("/inventoryItems/:id", async (req, res) => {
         const id = req.params.id;
         const filter = { _id: ObjectId(id) };
   
-        const result = await notesCollection.deleteOne(filter);
+        const result = await booksCollection.deleteOne(filter);
   
         res.send(result);
       });

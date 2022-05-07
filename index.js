@@ -48,6 +48,16 @@ async function run() {
         res.send(inventoryItem);
       });
 
+     // 
+      app.get('/inventoryItems/:id', async (req, res) => {
+          const id = req.params.id;
+
+          const query = { _id: ObjectID(id) };
+         const myItem = await booksCollection.findOne(query);
+
+         res.send(myItem);
+      }) 
+
       //create
       //http://localhost:4000/note
   
@@ -71,7 +81,7 @@ async function run() {
   
         const updateStock = {
           $set: {
-            booksQuantity: data.booksQuantity,
+            quantity: data.quantity,
           },
         };
   
@@ -80,11 +90,11 @@ async function run() {
           updateStock,
           options
         );
-        // console.log('from put method',id)
+         console.log('from put method',id)
         res.send(result);
       });
   
-      // delete note
+      // delete 
       //http://localhost:4000/inventoryItems/626e7e85bfcdae3b7161e7b2
       app.delete("/inventoryItems/:id", async (req, res) => {
         const id = req.params.id;
@@ -95,7 +105,7 @@ async function run() {
         res.send(result);
       });
   
-      console.log("connected to db");
+      console.log("Server is running!!");
     } finally {
     }
   }

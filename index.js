@@ -14,9 +14,6 @@ const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@c
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
  client.connect(err => {
   const collection = client.db("test").collection("devices");
-  console.log("Connected db")
-   //perform actions on the collection object
-  //client.close(); 
 });
 
 async function run() {
@@ -75,7 +72,6 @@ async function run() {
       app.put("/inventoryItems/:id", async (req, res) => {
         const id = req.params.id;
         const data = req.body;
-        //console.log("from update api", data);
         const filter = { _id: ObjectId(id) };
         const options = { upsert: true };
   

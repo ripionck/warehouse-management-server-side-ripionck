@@ -58,7 +58,7 @@ async function run() {
       //create
       //http://localhost:4000/note
   
-      app.post("/manageInventory", async (req, res) => {
+      app.post("/inventories", async (req, res) => {
         const data = req.body;
         //console.log("from post api", data);
   

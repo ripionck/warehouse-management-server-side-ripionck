@@ -20,6 +20,7 @@ async function run() {
     try {
       await client.connect();
       const booksCollection = client.db("bookKeeper").collection("inventoryItems");
+      const myCollection = client.db('bookKeeper').collection('myItems');
   
       // get multiples
       //http://localhost:4000/inventoryItems
@@ -44,16 +45,6 @@ async function run() {
 
         res.send(inventoryItem);
       });
-
-     // 
-      app.get('/inventoryItems/:id', async (req, res) => {
-          const id = req.params.id;
-
-          const query = { _id: ObjectID(id) };
-         const myItem = await booksCollection.findOne(query);
-
-         res.send(myItem);
-      }) 
 
       //create
       //http://localhost:4000/note
@@ -100,7 +91,24 @@ async function run() {
   
         res.send(result);
       });
-  
+
+      /* //my items
+      app.get("/myItems", async(req, res) =>{
+        const decodedEmail = req.decoded.email;
+        const email = req.query.email;
+        if(email === decodedEmail){
+          const query = {email: email};
+          const cursor = 
+        }
+      })
+   */
+
+      //my items
+      app.post('/myItems', async(req, res) =>{
+        const myItems = req.body;
+        const result = await myCollection.insertOne(myItems);
+        res.send(result);
+      })
       console.log("Server is running!!");
     } finally {
     }

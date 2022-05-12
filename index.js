@@ -100,15 +100,23 @@ async function run() {
           const query = {email: email};
           const cursor = 
         }
-      })
-   */
+      }) */
+   //my items API
+   app.get('/myItems', async(req, res)=>{
+     const query = {};
+     const cursor = myCollection.find(query);
+     const myItems = await cursor.toArray();
+     res.send(myItems)
+   })
 
       //my items
-      app.post('/myItems', async(req, res) =>{
+      app.post('/myItem', async(req, res) =>{
         const myItems = req.body;
         const result = await myCollection.insertOne(myItems);
         res.send(result);
       })
+
+
       console.log("Server is running!!");
     } finally {
     }

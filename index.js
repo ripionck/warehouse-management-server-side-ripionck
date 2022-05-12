@@ -68,7 +68,7 @@ async function run() {
   
         const updateStock = {
           $set: {
-            quantity: data.quantity,
+            quantity: quantity,
           },
         };
   
@@ -110,7 +110,7 @@ async function run() {
    })
 
       //my items
-      app.post('/myItem', async(req, res) =>{
+      app.post('/myItems', async(req, res) =>{
         const myItems = req.body;
         const result = await myCollection.insertOne(myItems);
         res.send(result);

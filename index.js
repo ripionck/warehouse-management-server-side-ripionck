@@ -38,13 +38,14 @@ async function run() {
      //http://localhost:4000/inventoryItems/626e7e85bfcdae3b7161e7b2
       app.get('/inventoryItems/:id', async (req, res) => {
         const id = req.params.id;
-        //console.log(id);
+        console.log(id);
 
         const query = { _id: ObjectID(id) };
         const inventoryItem = await booksCollection.findOne(query);
 
         res.send(inventoryItem);
       });
+// 
 
       //create
       //http://localhost:4000/note
@@ -68,7 +69,7 @@ async function run() {
   
         const updateStock = {
           $set: {
-            quantity: quantity,
+            quantity: data.quantity,
           },
         };
   

@@ -93,15 +93,6 @@ async function run() {
         res.send(result);
       });
 
-      /* //my items
-      app.get("/myItems", async(req, res) =>{
-        const decodedEmail = req.decoded.email;
-        const email = req.query.email;
-        if(email === decodedEmail){
-          const query = {email: email};
-          const cursor = 
-        }
-      }) */
    //my items API
    app.get('/myItems', async(req, res)=>{
      const query = {};

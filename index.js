@@ -61,7 +61,7 @@ async function run() {
   
       // update 
       //http://localhost:4000/inventoryItems/626e7e85bfcdae3b7161e7b2
-      app.put("/inventoryItems/:id", async (req, res) => {
+      app.put("/updateInfo/:id", async (req, res) => {
         const id = req.params.id;
         const data = req.body;
         const filter = { _id: ObjectId(id) };
@@ -78,7 +78,7 @@ async function run() {
           updateStock,
           options
         );
-         console.log('from put method',id)
+         //console.log('from put method',id)
         res.send(result);
       });
   

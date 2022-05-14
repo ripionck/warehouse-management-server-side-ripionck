@@ -69,7 +69,7 @@ async function run() {
   
         const updateStock = {
           $set: {
-            quantity: data.quantity,
+            quantity:parseInt( data.quantity),
           },
         };
   

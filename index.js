@@ -3,8 +3,9 @@ const app = express()
 const {ObjectId } = require('mongodb');
 require('dotenv').config();
 const port = process.env.PORT || 4000;
-//const port = 4000
+
 const cors = require("cors");
+const jwt = require('jsonwebtoken');
 
 app.use(cors());
 app.use(express.json());
@@ -22,8 +23,17 @@ async function run() {
       const booksCollection = client.db("bookKeeper").collection("inventoryItems");
       const myCollection = client.db('bookKeeper').collection('myItems');
   
+     //get user
+     app.post("/login", (req, res)=>{
+       const email = req.body;
+      
+       const token = jwt.sign(email , process.env.ACCESS_TOKEN_SECRET);
+
+       res.send({token})
+     })
+
+
       // get multiples
-      //http://localhost:4000/inventoryItems
       app.get("/inventoryItems", async (req, res) => {
         const q = req.query;
         //console.log(q);
@@ -35,7 +45,6 @@ async function run() {
       });
 
      //get one
-     //http://localhost:4000/inventoryItems/626e7e85bfcdae3b7161e7b2
       app.get('/inventoryItems/:id', async (req, res) => {
         const id = req.params.id;
         console.log(id);
@@ -44,12 +53,9 @@ async function run() {
         const inventoryItem = await booksCollection.findOne(query);
 
         res.send(inventoryItem);
-      });
-// 
+      }); 
 
-      //create
-      //http://localhost:4000/note
-  
+      //create one
       app.post("/inventoryItems", async (req, res) => {
         const data = req.body;
         //console.log("from post api", data);
@@ -60,7 +66,6 @@ async function run() {
       });
   
       // update 
-      //http://localhost:4000/inventoryItems/626e7e85bfcdae3b7161e7b2
       app.put("/inventoryItems/:id", async (req, res) => {
         const id = req.params.id;
         const data = req.body;
@@ -83,7 +88,6 @@ async function run() {
       });
   
       // delete 
-      //http://localhost:4000/inventoryItems/626e7e85bfcdae3b7161e7b2
       app.delete("/inventoryItems/:id", async (req, res) => {
         const id = req.params.id;
         const filter = { _id: ObjectId(id) };

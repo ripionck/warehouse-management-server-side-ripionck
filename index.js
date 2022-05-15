@@ -48,7 +48,7 @@ async function run() {
         res.send(inventoryItem);
       }); 
   
-      // update 
+      // update quantity
       app.put("/inventoryItems/:id", async (req, res) => {
         const id = req.params.id;
         const data = req.body;
@@ -70,16 +70,6 @@ async function run() {
         res.send(result);
       });
   
-      // delete 
-      app.delete("/inventoryItems/:id", async (req, res) => {
-        const id = req.params.id;
-        const filter = { _id: ObjectId(id) };
-  
-        const result = await booksCollection.deleteOne(filter);
-  
-        res.send(result);
-      });
-
        //create one
        app.post("/inventoryItems", async (req, res) => {
         const data = req.body;
@@ -101,6 +91,15 @@ async function run() {
         res.send(result);
       });
 
+      // delete 
+      app.delete("/inventoryItems/:id", async (req, res) => {
+        const id = req.params.id;
+        const filter = { _id: ObjectId(id) };
+
+        const result = await booksCollection.deleteOne(filter);
+
+        res.send(result);
+      });
 
       console.log("Server is running!!");
     } finally {

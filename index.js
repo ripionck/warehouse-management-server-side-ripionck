@@ -47,16 +47,6 @@ async function run() {
 
         res.send(inventoryItem);
       }); 
-
-      //create one
-      app.post("/inventoryItems", async (req, res) => {
-        const data = req.body;
-        //console.log("from post api", data);
-  
-        const result = await booksCollection.insertOne(data);
-  
-        res.send(result);
-      });
   
       // update 
       app.put("/inventoryItems/:id", async (req, res) => {
@@ -90,12 +80,26 @@ async function run() {
         res.send(result);
       });
 
-      //my items
-      app.post('/myItems', async(req, res) =>{
-        const myItems = req.body;
-        const result = await myCollection.insertOne(myItems);
+       //create one
+       app.post("/inventoryItems", async (req, res) => {
+        const data = req.body;
+        //console.log("from post api", data);
+
+        const result = await booksCollection.insertOne(data);
+
         res.send(result);
-      })
+      });
+
+      //get item for individual
+      app.get("/addedByUser", async(req, res)=>{
+        console.log(req.query);
+        const email = req.query.email;
+        const query = {email: email};
+        const cursor = booksCollection.find(query);
+        const result = await cursor.toArray();
+  
+        res.send(result);
+      });
 
 
       console.log("Server is running!!");

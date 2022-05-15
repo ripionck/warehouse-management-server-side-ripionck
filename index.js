@@ -123,8 +123,8 @@ async function run() {
     if (email === decodedEmail) {
         const query = { email: email };
         const cursor = myCollection.find(query);
-        const myItems = await cursor.toArray();
-        res.send(myItems);
+        const myItem = await cursor.toArray();
+        res.send(myItem);
     }
     else{
         res.status(403).send({message: 'forbidden access'})

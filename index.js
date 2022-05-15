@@ -117,14 +117,14 @@ async function run() {
       });
 
    //my items API
-   app.get('/order', verifyJWT, async (req, res) => {
+   app.get('/myItems', verifyJWT, async (req, res) => {
     const decodedEmail = req.decoded.email;
     const email = req.query.email;
     if (email === decodedEmail) {
         const query = { email: email };
-        const cursor = orderCollection.find(query);
-        const orders = await cursor.toArray();
-        res.send(orders);
+        const cursor = myCollection.find(query);
+        const myItems = await cursor.toArray();
+        res.send(myItems);
     }
     else{
         res.status(403).send({message: 'forbidden access'})

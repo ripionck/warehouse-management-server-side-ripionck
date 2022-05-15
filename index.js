@@ -40,7 +40,7 @@ async function run() {
      //get one
       app.get('/inventoryItems/:id', async (req, res) => {
         const id = req.params.id;
-        console.log(id);
+        //console.log(id);
 
         const query = { _id: ObjectID(id) };
         const inventoryItem = await booksCollection.findOne(query);
@@ -89,21 +89,6 @@ async function run() {
   
         res.send(result);
       });
-
-   //my items API
-   app.get('/myItems', async (req, res) => {
-    const decodedEmail = req.decoded.email;
-    const email = req.query.email;
-    if (email === decodedEmail) {
-        const query = { email: email };
-        const cursor = myCollection.find(query);
-        const myItem = await cursor.toArray();
-        res.send(myItem);
-    }
-    else{
-        res.status(403).send({message: 'forbidden access'})
-    }
-})
 
       //my items
       app.post('/myItems', async(req, res) =>{
